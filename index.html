@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css"/>
+        <title>Books</title>
+    </head>
+    <body>
+        <h1 id="center">Books</h1>
+        <div id="books">
+            <div v-if="loading">
+                <p>Loading...</p> 
+            </div>
+            <div v-else>
+                <h3>Search for a book</h3>
+                <form @submit.prevent="searchBooks">
+                    <input v-model="search" placeholder="Title"></p>
+                    <br />
+                    <button type="submit">Search</button>
+                </form>
+                <h3>Book titles</h3>
+                <button @click="favoriteBooks">Favorited Books</button>
+                <div>
+                    <p>{{data.docs}}</p>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
+        <script src="./script.js"></script>
+    </body>
+</html>
