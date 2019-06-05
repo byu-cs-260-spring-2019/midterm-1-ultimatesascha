@@ -6,21 +6,43 @@
     </head>
     <body>
         <h1 id="center">Books</h1>
-        <div id="books">
+        <div id="app">
             <div v-if="loading">
                 <p>Loading...</p> 
             </div>
             <div v-else>
-                <h3>Search for a book</h3>
-                <form @submit.prevent="searchBooks">
-                    <input v-model="search" placeholder="Title"></p>
+                <h3 id="center">Search for a book</h3>
+                <form @submit.prevent="searchBooks" id="center">
+                    <input v-model="search" placeholder="Title" id="center"></p>
                     <br />
                     <button type="submit">Search</button>
                 </form>
+                <br/>
+                <button @click="showAll()" id="center">Show Favorite Books</button>
                 <h3>Book titles</h3>
-                <button @click="favoriteBooks">Favorited Books</button>
-                <div>
-                    <p>{{data.docs}}</p>
+                <div v-if="loading">
+                        <p>Loading...</p> 
+                </div>
+                <div v-else>
+                    <div v-for="b in data.docs">
+                        <div v-if="b.publish_date">
+                            <p>{{b.title}}</p>
+                            <p>Author:   {{b.author_name}}</p>
+                            <p>Publish Date: {{b.publish_date[0]}}</p>
+                            <div v-if="b.isbn">
+                                <p>ISBN: {{b.isbn[0]}}</p>
+                            </div>
+                            <button @click="favoriteBook()">Favorite Book</button>        
+                        </div>
+                        <div v-else>
+                            <p>{{b.title}}</p>
+                            <p>Author:   {{b.author_name}}</p>
+                            <div v-if="b.isbn">
+                                <p>ISBN: {{b.isbn[0]}}</p>
+                            </div>
+                            <button @click="favoriteBook()">Favorite Book</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
